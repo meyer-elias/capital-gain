@@ -7,4 +7,7 @@ public record FeeDto(
     @JsonProperty("tax")
     BigDecimal tax) {
 
+    public FeeDto(@JsonProperty("tax") String tax) {
+        this(new BigDecimal(tax));
+    }
 }
