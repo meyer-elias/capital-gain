@@ -13,7 +13,7 @@ COPY . .
 RUN gradle clean build
 
 # actual container
-FROM openjdk:21
+FROM openjdk:21-jdk-slim
 ENV ARTIFACT_NAME=capital-gain-1.0.jar
 ENV APP_HOME=/usr/app/
 
