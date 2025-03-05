@@ -1,6 +1,5 @@
 package com.nubank.capitalgain.application.domain.calculator;
 
-import com.nubank.capitalgain.application.domain.commons.Order;
 import com.nubank.capitalgain.application.domain.commons.Stock;
 import com.nubank.capitalgain.application.domain.commons.Trade;
 import com.nubank.capitalgain.application.domain.primitives.Money;
@@ -36,7 +35,7 @@ public class CalculatorGainCapital implements Calculator<Trade, Money> {
      * @param trade trade
      */
     void buy(Trade trade) {
-        stock.add(new Order(trade.unitCost(), trade.quantity()));
+        stock.add(trade.unitCost(), trade.quantity());
         this.capitalGain = new ZeroMoney();
     }
 

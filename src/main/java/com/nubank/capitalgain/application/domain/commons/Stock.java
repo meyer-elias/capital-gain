@@ -25,23 +25,26 @@ public class Stock {
     /**
      * Calculate the weighted average price of the stock.
      *
-     * @param order order
+     * @param quantity quantity
+     * @param unitCost unitCost
      */
-    private void calculateWeightAverage(Order order) {
+    private void calculateWeightAverage(Money unitCost, Quantity quantity) {
+        Money totalOperation = unitCost.multiply(quantity);
         Money averagePrice = weightedAveragePrice.multiply(position);
-        Quantity totalPosition = position.sum(order.quantity());
+        Quantity totalPosition = position.sum(quantity);
 
-        this.weightedAveragePrice = (averagePrice.sum(order.getTotalCost())).divide(totalPosition);
+        this.weightedAveragePrice = (averagePrice.sum(totalOperation)).divide(totalPosition);
     }
 
     /**
      * Add an order to the stock.
      *
-     * @param order order
+     * @param quantity quantity
+     * @param unitCost unitCost
      */
-    public void add(Order order) {
-        this.calculateWeightAverage(order);
-        this.position = position.sum(order.quantity());
+    public void add(Money unitCost, Quantity quantity) {
+        this.calculateWeightAverage(unitCost, quantity);
+        this.position = position.sum(quantity);
     }
 
     /**
