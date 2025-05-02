@@ -102,46 +102,26 @@ O projeto seguiu os príncipios de Hexagonal Architecture a fim de isolar o dom�
 Portanto, obedeceu o seguinte layout:
 
 ```
-/
-└── capital-gain
-    └── src
-        └── java
-            └── com.nubank.capitalgain
-                ├── adapter
-                │   └── in
-                │       ├── JsonMapper
-                │       └── TaxCalculatorAdapterConsoleCli
-                ├── application
-                │       ├── domain
-                │       │   ├── calculator
-                │       │   ├── commons
-                │       │   ├── dto
-                │       │   ├── exceptions
-                │       │   └── primitives
-                │       └── ports
-                │           └── in
-                │               ├── TaxCalculatorUseCasePort
-                │               └── TaxCalculatorUseCasePortImpl
-                └── CapitalGainMain
+/capital-gain (root)
+├── capital-gain-core (module)
+│   └── src/main/java
+│       └── com.nubank.capitalgain.core
+│           ├── calculator
+│           │   ├── application
+│           │   ├── exception
+│           │   ├── domain
+│           │   └── model
+│           └── commons
+└── capital-gain-adapter-cli (module)
+    └── src/main/java
+        └── com.nubank.capitalgain.adapter.cli
+            ├── in
+            └── CapitalGainMain.java
 ```
 
-No package `application/domain/primitives` há os tipos de objetos primitivos para facilitar o encapsulamento e incrementar a legibilidade.
-O `commons` são objetos mais elaborados e fazem sentido para melhor entendimento do contexto do negócio. Vide:
-
-```
-application
-└── domain
-    ├── primitives
-    │   ├── Money.java
-    │   ├── Percentage.java
-    │   ├── Quantity.java
-    │   └── ZeroMoney.java
-    └── commons
-        ├── Fee.java
-        ├── Stock.java
-        ├── Trade.java
-        └── TypeOperation.java
-```
+No package `capital-gain-core/com.nubank.capitalgain.core/commons` há os tipos de objetos primitivos para facilitar o encapsulamento e incrementar a
+legibilidade.
+O `model` são objetos mais elaborados e fazem sentido para melhor entendimento do contexto do negócio. Vide:
 
 Já no `calculator` reside o cálculo. No meu entendimento, é necessário efetuar o cálculo do ganho de capital conforme a transação
 de compra ou venda das ações. Além disso, sobre este comportamento, é necessário adicionar outro comportamento (taxar) esse lucro/perda e, portanto,
@@ -178,6 +158,6 @@ gradle build
 Vá o diretório **build** e execute:
 
 ```java
-java -jar ./libs/capital-gain-1.0-SNAPSHOT.jar
+java -jar ./libs/capital-gain-adapter-cli-1.0-SNAPSHOT.jar
 ```
     
