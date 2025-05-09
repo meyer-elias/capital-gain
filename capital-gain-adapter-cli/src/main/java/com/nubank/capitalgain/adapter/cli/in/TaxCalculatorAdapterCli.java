@@ -1,6 +1,6 @@
 package com.nubank.capitalgain.adapter.cli.in;
 
-
+import com.nubank.capitalgain.adapter.cli.in.request.TradeRequest;
 import com.nubank.capitalgain.core.calculator.application.TaxCalculatorUseCasePort;
 import com.nubank.capitalgain.core.calculator.application.TaxCalculatorUseCasePortImpl;
 import com.nubank.capitalgain.core.calculator.application.dto.TradeDto;
@@ -26,11 +26,18 @@ public class TaxCalculatorAdapterCli {
             if (line.isBlank()) {
                 break;
             }
-            List<TradeDto> tradesArray = Arrays.asList((TradeDto[]) jsonMapper.readValue(line, TradeDto[].class));
+            List<TradeRequest> tradesArray = Arrays.asList((TradeRequest[]) jsonMapper.readValue(line, TradeRequest[].class));
 
-            trades.add(new TradesDto(tradesArray));
+            trades.add(new TradesDto(tradesArray
+                .stream()
+                .map(this::mapperFrom)
+                .toList()));
         }
         scanner.close();
         trades.forEach(operations -> System.out.println(jsonMapper.writeValuesAsString(taxCalculateUseCase.calculate(operations))));
+    }
+
+    private TradeDto mapperFrom(TradeRequest tradeRequest) {
+        return new TradeDto(tradeRequest.typeOperation(), tradeRequest.unitCost(), tradeRequest.quantity());
     }
 }

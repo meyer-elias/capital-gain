@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 /**
  * Record that represents a trading operation.
  *
- * @param typeOperation The typeOperation of operation
+ * @param typeOperation The operation of operation
  * @param quantity      The quantity of the trade
  * @param unitCost      The unit cost of the trade
  */

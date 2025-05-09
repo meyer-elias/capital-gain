@@ -8,4 +8,8 @@ public record TradeDto(TypeOperation typeOperation, BigDecimal unitCost, int qua
     public TradeDto(TypeOperation typeOperation, String unitCost, int quantity) {
         this(typeOperation, new BigDecimal(unitCost), quantity);
     }
+
+    public TradeDto(String typeOperation, String unitCost, int quantity) {
+        this(TypeOperation.valueOf(typeOperation.toUpperCase()), new BigDecimal(unitCost), quantity);
+    }
 }
